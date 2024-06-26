@@ -1,4 +1,4 @@
-import CreateClient from '../componentes/Clientes/CreateClient'
+import CreateClient from '../../componentes/Clientes/CreateClient'
 
 const CreateClientePage = () => {
   return (

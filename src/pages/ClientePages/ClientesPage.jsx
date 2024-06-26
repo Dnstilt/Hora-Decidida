@@ -1,4 +1,4 @@
-import Clientes from '../componentes/Clientes/Clientes'
+import Clientes from '../../componentes/Clientes/Clientes'
 
 const ClientesPage = () => {
   return (

@@ -1,26 +1,28 @@
+import { useState, useRef } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import api from '../../services/api'
 
 const CreateClient = () => {
 
     const navigate = useNavigate()
+    let inputNome = useRef()
+    let inputCpf = useRef()
+    let inputEmail = useRef()
+    let inputTelefone = useRef()
 
-    async function handSubmit(event) {
-        event.preventDefault()
-
-        const formData = new FormData(event.target)
-        const cliente = Object.fromEntries(formData.entries())
-
-        if(!cliente.nome || !cliente.cpf || !cliente.email || !cliente.telefone){
+    async function createCliente(){
+    
+        if (!inputNome.current.value || !inputCpf.current.value || !inputEmail.current.value || !inputTelefone.current.value) {
             alert("Porfavor preencha todos os campos")
             return
         }
-        try{
-            const response = fetch("http://localhost:3000/clientes", {
-                method: "POST",
-                body: formData
+        try {
+            await api.post('/clientes', {
+            nome:inputNome.current.value,
+            cpf:inputCpf.current.value,
+            email:inputEmail.current.value,
+            telefone:inputTelefone.current.value   
             })
-            const data = await response.json()
-
             if (response.ok) {
                 navigate("/clientes")
             }
@@ -30,49 +32,49 @@ const CreateClient = () => {
             else {
                 alert("Não foi possível cadastrar o cliente tente novamente")
             }
+        } 
+        catch (error) {
+            navigate("/clientes")
         }
-        catch(error) {
-            alert("Não foi possível se conectar com o servidor")
-        }
-    } 
+    }
 
     return (
         <div className="container my-4">
             <div className="row">
                 <div className="col-md-8 mx-auto align-content-center rounded border p-4">
                     <h2 className="text-center mb-5">Insira um novo cliente.</h2>
-                    <form onSubmit={handSubmit}>
+                    <form >
                         <div className="row mb-5">
-                            <label className="col-sm-4 col-form-label">Nome</label>
+                            <label className="col-sm-4 col-form-label" >Nome</label>
                             <div className="col-sm-8">
-                                <input type="text" className="form-control" name="nome" />
+                                <input type="text" className="form-control" name="nome" ref={inputNome}/>
                                 
                             </div>
                         </div>
                         <div className="row mb-5">
-                            <label className="col-sm-4 col-form-label">CPF</label>
+                            <label className="col-sm-4 col-form-label" >CPF</label>
                             <div className="col-sm-8">
-                                <input type="text" className="form-control" name="cpf" />
+                                <input type="text" className="form-control" name="cpf" ref={inputCpf} />
                                 
                             </div>
                         </div>
                         <div className="row mb-5">
                             <label className="col-sm-4 col-form-label">Email</label>
                             <div className="col-sm-8">
-                                <input type="text" className="form-control" name="email" />
+                                <input type="text" className="form-control" name="email" ref={inputEmail}/>
                                 
                             </div>
                         </div>
                         <div className="row mb-5">
-                            <label className="col-sm-4 col-form-label">Telefone</label>
+                            <label className="col-sm-4 col-form-label" >Telefone</label>
                             <div className="col-sm-8">
-                                <input type="text" className="form-control" name="telefone" />
+                                <input type="text" className="form-control" name="telefone" ref={inputTelefone}/>
                                 
                             </div>
                         </div>
                         <div className="row">
                             <div className="offset-sm-4 col-sm-4 d-grid">
-                                <button className="btn btn-primary">Enviar</button>
+                                <button type="button" onClick={createCliente} className="btn btn-primary">Enviar</button>
                             </div>
                             <div className="col-sm-4 d-grid">
                                 <Link className="btn btn-secondary" to="/clientes" role="button">Cancelar</Link>
@@ -80,7 +82,7 @@ const CreateClient = () => {
                         </div>
                     </form>
                 </div>
-            </div>    
+            </div>
         </div>
     )
 }
