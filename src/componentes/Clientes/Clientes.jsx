@@ -1,11 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
 const Clientes = () => {
     const [clientes, setClientes] = useState([])
 
     function getClientes() {
-        fetch ["http://localhost:3000/clientes "]
+        fetch ("http://localhost:3000/clientes ")
         .then(response => {
             if (response.ok){
                 return response.json()
@@ -20,13 +20,15 @@ const Clientes = () => {
         }) 
     }
 
+    useEffect(getClientes, [])
+
     return ( 
         <div className="container my-4">
             <h2 className="text-center mb-4">Clientes</h2>
             <div className="row mb-3">
                 <div className="col">
-                 <Link className="btn btn-primary me-1" to="" role="button">Cdastrar Cliente</Link>
-                 <button type="button" className="btn btn-outline-primary">Limpar</button>    
+                 <Link className="btn btn-primary me-1" to="/createCliente" role="button">Cadastrar Cliente</Link>
+                 <button type="button" className="btn btn-outline-primary" onClick={ getClientes }>Restaurar</button>    
                 </div>
                 <div className="col">
 
@@ -54,7 +56,7 @@ const Clientes = () => {
                                     <td>{cliente.email}</td>
                                     <td>{cliente.telefone}</td>
                                     <td style={{width: "10px", whiteSpace: "nowrap"}}>
-                                        <Link className="btn btn-primary btn-sm me-1" to="">Editar</Link>
+                                        <Link className="btn btn-primary btn-sm me-1" to="/clientes/editar">Editar</Link>
                                         <button type="button" className="btn btn-danger btn-sm">Deletar</button>
                                     </td>
                                 </tr>

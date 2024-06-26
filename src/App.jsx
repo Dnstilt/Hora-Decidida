@@ -15,6 +15,7 @@ import NotFoundPage from './pages/NotFoundPage'
 import MainLayout from "./Layouts/MainLayout";
 import EmpresasPage from "./pages/EmpresasPage";
 import FuncionariosPage from "./pages/FuncionariosPage";
+import CreateClientePage  from "./componentes/Clientes/CreateClient";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
       <Route path="/politica" element={ <PoliticaPage/> }/>
       <Route path="/termos" element={ <TermosPage/> }/>
       <Route path="/clientes" element={ <ClientesPage /> }/>
+      <Route path="/createCliente" element={ <CreateClientePage /> }/>
       <Route path="/Empresas" element={ <EmpresasPage /> }/>
       <Route path="/Funcionarios" element={ <FuncionariosPage /> }/>
       <Route path="*" element={ <NotFoundPage/> }/> 
