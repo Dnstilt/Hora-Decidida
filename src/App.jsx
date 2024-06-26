@@ -10,11 +10,11 @@ import ProductsPage from './pages/ProductsPage'
 import PartnersPage from './pages/PartnersPage'
 import PoliticaPage from './pages/PoliticaPage'
 import TermosPage from './pages/TermosPage'
-import UsersPage from './pages/UsersPage'
+import ClientesPage from './pages/ClientesPage'
 import NotFoundPage from './pages/NotFoundPage'
 import MainLayout from "./Layouts/MainLayout";
-import EmpresasPage from "./pages/Empresas";
-import FuncionariosPage from "./pages/Funcionarios";
+import EmpresasPage from "./pages/EmpresasPage";
+import FuncionariosPage from "./pages/FuncionariosPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,7 +24,7 @@ const router = createBrowserRouter(
       <Route path="/parceiros" element={ <PartnersPage/> }/>
       <Route path="/politica" element={ <PoliticaPage/> }/>
       <Route path="/termos" element={ <TermosPage/> }/>
-      <Route path="/users" element={ <UsersPage /> }/>
+      <Route path="/clientes" element={ <ClientesPage /> }/>
       <Route path="/Empresas" element={ <EmpresasPage /> }/>
       <Route path="/Funcionarios" element={ <FuncionariosPage /> }/>
       <Route path="*" element={ <NotFoundPage/> }/> 
