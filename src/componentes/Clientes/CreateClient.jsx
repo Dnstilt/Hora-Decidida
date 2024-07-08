@@ -36,6 +36,7 @@ const CreateClient = () => {
         catch (error) {
             navigate("/clientes")
         }
+        
     }
 
     return (

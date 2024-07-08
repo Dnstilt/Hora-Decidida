@@ -1,16 +1,19 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useEffect } from "react"
+
 import { Link, useNavigate, useParams } from "react-router-dom"
 
 const UpdateCliente = () => {
 
-
     const params = useParams()
-    const [dadosIniciais, setDadosIniciais] = useState([])
+    const [dadosIniciais, setDadosIniciais] = useState({
+        id: params.id,
+        nome:"",
+        cpf: "",
+        email:"",
+        telefone: ""
+    })
     const navigate = useNavigate()
-    let inputNome = useRef()
-    let inputCpf = useRef()
-    let inputEmail = useRef()
-    let inputTelefone = useRef()
+    console.log(params)
 
     function getCliente() {
         fetch("http://localhost:3000/clientes/" + params.id)
@@ -22,31 +25,31 @@ const UpdateCliente = () => {
             })
             .then(data => {
                 setDadosIniciais(data)
+                console.log(data)
             })
             .catch(error => {
-                alert("Não foi possível ver o cliente.")
+                alert("Não foi possível achar o cliente.")
+                navigate("/clientes")
             })
     }
     useEffect(getCliente, [])
 
     async function handlerSubmit(event) {
         event.preventDefault()
-        const formData = new FormData(event.target)
-        const cliente = Object.fromEntries(formData.entries())
-
-        if (!cliente.nome || !cliente.cpf || !cliente.email || !cliente.telefone) {
+        console.log(dadosIniciais)
+        const formData = JSON.stringify(dadosIniciais)
+        if (!dadosIniciais.nome || !dadosIniciais.cpf || !dadosIniciais.email || !dadosIniciais.telefone) {
             alert("Porfavor preencha todos os campos")
             return
         }
         try {
-            const response = await fetch("http://localhost:3000/clientes/"+params.id, {
-                method:"PATCH",
+            const response = await fetch("http://localhost:3000/clientes/" + params.id, {
+                method: "PUT",
                 body: formData
             })
-
             const data = await response.json()
 
-            if (response.ok) {
+            if (response.status === 200) {
                 navigate("/clientes")
             }
             else if (response.status === 400) {
@@ -69,7 +72,8 @@ const UpdateCliente = () => {
                     <div className="row mb-5">
                         <label className="col-sm-4 col-form-label" >Id</label>
                         <div className="col-sm-8">
-                            <input readOnly className="form-control-plaintext" defaultValue={params.id} />
+                            <input readOnly className="form-control-plaintext" value={params.id} 
+                            onChange={e => setDadosIniciais({...dadosIniciais, id: e.target.value})} />
                         </div>
                     </div>
                     {
@@ -78,34 +82,37 @@ const UpdateCliente = () => {
                             <div className="row mb-5">
                                 <label className="col-sm-4 col-form-label" >Nome</label>
                                 <div className="col-sm-8">
-                                    <input type="text" className="form-control" name="nome" defaultValue={dadosIniciais.nome} />
-
+                                    <input type="text" className="form-control" name="nome" value={dadosIniciais.nome} 
+                                    onChange={e =>setDadosIniciais({...dadosIniciais, nome: e.target.value})}/>
+                                    
                                 </div>
                             </div>
                             <div className="row mb-5">
                                 <label className="col-sm-4 col-form-label" >CPF</label>
                                 <div className="col-sm-8">
-                                    <input type="text" className="form-control" name="cpf"  defaultValue={dadosIniciais.cpf} />
+                                    <input type="text" className="form-control" name="cpf"  value={dadosIniciais.cpf} 
+                                    onChange={e =>setDadosIniciais({...dadosIniciais, cpf: e.target.value})}/>
 
                                 </div>
                             </div>
                             <div className="row mb-5">
                                 <label className="col-sm-4 col-form-label">Email</label>
                                 <div className="col-sm-8">
-                                    <input type="text" className="form-control" name="email"  defaultValue={dadosIniciais.email} />
-
+                                    <input type="email" className="form-control" name="email"  value={dadosIniciais.email} 
+                                    onChange={e =>setDadosIniciais({...dadosIniciais, email: e.target.value})}/>
                                 </div>
                             </div>
                             <div className="row mb-5">
                                 <label className="col-sm-4 col-form-label" >Telefone</label>
                                 <div className="col-sm-8">
-                                    <input type="text" className="form-control" name="telefone"  defaultValue={dadosIniciais.telefone} />
+                                    <input type="text" className="form-control" name="telefone"  value={dadosIniciais.telefone} 
+                                    onChange={e =>setDadosIniciais({...dadosIniciais, telefone: e.target.value})}/>
 
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="offset-sm-4 col-sm-4 d-grid">
-                                    <button type="button" className="btn btn-primary">Salvar</button>
+                                    <button type="submit" className="btn btn-primary">Salvar</button>
                                 </div>
                                 <div className="col-sm-4 d-grid">
                                     <Link className="btn btn-secondary" to="/clientes" role="button">Cancelar</Link>

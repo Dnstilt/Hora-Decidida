@@ -7,7 +7,7 @@ const Clientes = () => {
    
     const navigate = useNavigate()
 
-    function getClientes() {
+    function getCliente() {
         fetch("http://localhost:3000/clientes ")
             .then(response => {
                 if (response.ok) {
@@ -22,7 +22,7 @@ const Clientes = () => {
                 alert("Não foi possivel achar o arquivo")
             })
     }
-    useEffect(getClientes, [])
+    useEffect(getCliente, [])
 
     return (
         <div className="container my-4">
