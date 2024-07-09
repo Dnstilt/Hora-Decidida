@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 
 import { Link, useNavigate, useParams } from "react-router-dom"
+import api from '../../services/api'
 
 const UpdateCliente = () => {
 
@@ -13,8 +14,7 @@ const UpdateCliente = () => {
         telefone: ""
     })
     const navigate = useNavigate()
-    console.log(params)
-
+   
     function getCliente() {
         fetch("http://localhost:3000/clientes/" + params.id)
             .then(response => {
@@ -25,7 +25,6 @@ const UpdateCliente = () => {
             })
             .then(data => {
                 setDadosIniciais(data)
-                console.log(data)
             })
             .catch(error => {
                 alert("Não foi possível achar o cliente.")
@@ -36,19 +35,21 @@ const UpdateCliente = () => {
 
     async function handlerSubmit(event) {
         event.preventDefault()
-        console.log(dadosIniciais)
-        const formData = JSON.stringify(dadosIniciais)
+        
         if (!dadosIniciais.nome || !dadosIniciais.cpf || !dadosIniciais.email || !dadosIniciais.telefone) {
             alert("Porfavor preencha todos os campos")
             return
         }
         try {
-            const response = await fetch("http://localhost:3000/clientes/" + params.id, {
-                method: "PUT",
-                body: formData
-            })
+            await api.put('http://localhost:3000/clientes/' + params.id, {
+                nome:dadosIniciais.nome,
+                cpf:dadosIniciais.cpf,
+                email:dadosIniciais.email,
+                telefone:dadosIniciais.telefone   
+                })
+            console.log(response.body)
             const data = await response.json()
-
+            
             if (response.status === 200) {
                 navigate("/clientes")
             }
@@ -56,11 +57,13 @@ const UpdateCliente = () => {
                 alert("Erro de validação")
             }
             else {
+                console.log(Error)
                 alert("Não foi possível editar o cliente tente novamente")
             }
         }
         catch (error) {
             navigate("/clientes")
+            console.log(error)
         }
     }
 
@@ -72,13 +75,12 @@ const UpdateCliente = () => {
                     <div className="row mb-5">
                         <label className="col-sm-4 col-form-label" >Id</label>
                         <div className="col-sm-8">
-                            <input readOnly className="form-control-plaintext" value={params.id} 
-                            onChange={e => setDadosIniciais({...dadosIniciais, id: e.target.value})} />
+                            <input readOnly className="form-control-plaintext" value={params.id} />
                         </div>
                     </div>
                     {
                         dadosIniciais &&
-                        <form onSubmit={handlerSubmit}>
+                        <form id="clienteForm" onSubmit={handlerSubmit}>
                             <div className="row mb-5">
                                 <label className="col-sm-4 col-form-label" >Nome</label>
                                 <div className="col-sm-8">
