@@ -13,7 +13,7 @@ const UpdateEmpresas = () => {
         telefone: ""
     })
     const navigate = useNavigate()
-   
+    
     function getEmpresas() {
         fetch("http://localhost:3000/empresas/" + params.id)
             .then(response => {
@@ -24,6 +24,7 @@ const UpdateEmpresas = () => {
             })
             .then(data => {
                 setDadosIniciais(data)
+                console.log(dadosIniciais)
             })
             .catch(error => {
                 alert("Não foi possível achar a empresa.")
@@ -90,7 +91,7 @@ const UpdateEmpresas = () => {
                             <div className="row mb-5">
                                 <label className="col-sm-4 col-form-label" >Endereço</label>
                                 <div className="col-sm-8">
-                                    <input type="text" className="form-control" name="endereço"  value={dadosIniciais.endereco} 
+                                    <input type="text" className="form-control" name="endereco"  value={dadosIniciais.endereco} 
                                     onChange={e =>setDadosIniciais({...dadosIniciais, endereco: e.target.value})}/>
 
                                 </div>

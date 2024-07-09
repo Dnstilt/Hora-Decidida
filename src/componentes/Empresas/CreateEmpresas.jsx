@@ -16,7 +16,7 @@ const CreateEmpresas = () => {
             return
         }
         try {
-            await api.post('/clientes', {
+            await api.post('/empresas', {
             nome:inputNome.current.value,
             endereco:inputEndereco.current.value,
             telefone:inputTelefone.current.value   
@@ -28,7 +28,7 @@ const CreateEmpresas = () => {
                 alert("Erro de validação")
             }
             else {
-                alert("Não foi possível cadastrar o cliente tente novamente")
+                alert("Não foi possível cadastrar a empresa tente novamente")
             }
         } 
         catch (error) {
@@ -53,7 +53,7 @@ const CreateEmpresas = () => {
                         <div className="row mb-5">
                             <label className="col-sm-4 col-form-label" >Endereço</label>
                             <div className="col-sm-8">
-                                <input type="text" className="form-control" name="cpf" ref={inputEndereco} />
+                                <input type="text" className="form-control" name="endereco" ref={inputEndereco} />
                                 
                             </div>
                         </div>
@@ -66,7 +66,7 @@ const CreateEmpresas = () => {
                         </div>
                         <div className="row">
                             <div className="offset-sm-4 col-sm-4 d-grid">
-                                <button type="button" onClick={createCliente} className="btn btn-primary">Enviar</button>
+                                <button type="button" onClick={createEmpresas} className="btn btn-primary">Enviar</button>
                             </div>
                             <div className="col-sm-4 d-grid">
                                 <Link className="btn btn-secondary" to="/clientes" role="button">Cancelar</Link>

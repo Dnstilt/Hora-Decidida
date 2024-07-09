@@ -29,7 +29,7 @@ const Empresas = () => {
             <h2 className="text-center mb-4">Empresas</h2>
             <div className="row mb-3">
                 <div className="col">
-                    <Link className="btn btn-primary me-1" to="/createCliente" role="button">Cadastrar Empresa</Link>
+                    <Link className="btn btn-primary me-1" to="/createempresas" role="button">Cadastrar Empresa</Link>
                     <button type="button" className="btn btn-outline-primary" onClick={getEmpresas}>Restaurar</button>
                 </div>
                 <div className="col">
@@ -53,7 +53,7 @@ const Empresas = () => {
                                 <tr key={index}>
                                     <td>{empresa.id}</td>
                                     <td>{empresa.nome}</td>
-                                    <td>{empresa.endereço}</td>
+                                    <td>{empresa.endereco}</td>
                                     <td>{empresa.telefone}</td>
                                     <td style={{ width: "10px", whiteSpace: "nowrap" }}>
                                         <Link className="btn btn-primary btn-sm me-1" to={"/updadeempresas/"+empresa.id}>Editar</Link>
