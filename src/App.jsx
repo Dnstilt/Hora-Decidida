@@ -14,7 +14,9 @@ import ClientesPage from './pages/ClientePages/ClientesPage'
 import NotFoundPage from './pages/NotFoundPage'
 import MainLayout from "./Layouts/MainLayout";
 import EmpresasPage from "./pages/EmpresasPages/EmpresasPage";
-import FuncionariosPage from "./pages/FuncionariosPage";
+import FuncionariosPage from "./pages/FuncionariosPages/FuncionariosPage";
+import CreateFuncionarioPage from "./pages/FuncionariosPages/CreateFuncionarioPage";
+import UpdateFuncionarioPage from "./pages/FuncionariosPages/UpdateFuncionarioPage";
 import CreateClientePage  from "./pages/ClientePages/CreateClientePage";
 import UpdateClientePage from "./pages/ClientePages/UpdateClientePage";
 import CreateEmpresasPage from "./pages/EmpresasPages/CreateEmpresasPage";
@@ -35,6 +37,8 @@ const router = createBrowserRouter(
       <Route path="/createempresas" element={ < CreateEmpresasPage/> }/>
       <Route path="/updadeempresas/:id" element={ < UpdateEmpresasPage /> }/>
       <Route path="/funcionarios" element={ <FuncionariosPage /> }/>
+      <Route path="/createfuncionario" element={ < CreateFuncionarioPage/> }/>
+      <Route path="/updatefuncionario/:id" element={ <UpdateFuncionarioPage/> }/>
       <Route path="*" element={ <NotFoundPage/> }/> 
     </Route>  
 )

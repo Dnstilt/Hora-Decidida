@@ -1,5 +1,5 @@
 
-import Funcionarios from '../componentes/Funcionarios/Funcionarios'
+import Funcionarios from '../../componentes/Funcionarios/Funcionarios'
 
 const FuncionariosPage = () => {
   return (
