@@ -13,10 +13,12 @@ import TermosPage from './pages/TermosPage'
 import ClientesPage from './pages/ClientePages/ClientesPage'
 import NotFoundPage from './pages/NotFoundPage'
 import MainLayout from "./Layouts/MainLayout";
-import EmpresasPage from "./pages/EmpresasPage";
+import EmpresasPage from "./pages/EmpresasPages/EmpresasPage";
 import FuncionariosPage from "./pages/FuncionariosPage";
 import CreateClientePage  from "./pages/ClientePages/CreateClientePage";
 import UpdateClientePage from "./pages/ClientePages/UpdateClientePage";
+import CreateEmpresasPage from "./pages/EmpresasPages/CreateEmpresasPage";
+import UpdateEmpresasPage from "./pages/EmpresasPages/UpdateEmpresasPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,8 +31,10 @@ const router = createBrowserRouter(
       <Route path="/clientes" element={ <ClientesPage /> }/>
       <Route path="/createcliente" element={ <CreateClientePage /> }/>
       <Route path="/updatecliente/:id" element={ <UpdateClientePage /> }/>
-      <Route path="/Empresas" element={ <EmpresasPage /> }/>
-      <Route path="/Funcionarios" element={ <FuncionariosPage /> }/>
+      <Route path="/empresas" element={ <EmpresasPage /> }/>
+      <Route path="/createempresas" element={ < CreateEmpresasPage/> }/>
+      <Route path="/updadeempresas/:id" element={ < UpdateEmpresasPage /> }/>
+      <Route path="/funcionarios" element={ <FuncionariosPage /> }/>
       <Route path="*" element={ <NotFoundPage/> }/> 
     </Route>  
 )
